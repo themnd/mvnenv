@@ -1,0 +1,47 @@
+#!/bin/bash
+
+resolve_link() {
+  $(type -p greadlink readlink | head -1) "$1"
+}
+
+name=${1##*/}
+LOCALVER=.mvn-version
+
+if [ -z "${name}" ]; then
+  if [ -e "${LOCALVER}" ]; then
+    echo -e "Current local maven version\n"
+    cat ${LOCALVER}
+
+    echo -e "\nAvailable:\n"
+
+    mvnenv versions
+  else
+    echo -e "There is no local maven version set\n"
+    
+    echo -e "\nAvailable:\n"
+
+    mvnenv versions
+
+    exit 1
+  fi
+else
+  if [ "${name}" = "--unset" ]; then
+    if [ -e "${LOCALVER}" ]; then
+      rm ${LOCALVER}
+      echo "Removed local maven version"
+    else
+      echo "There is no local maven version"
+      exit 1
+    fi
+  else
+    vername=${MVNENV_DIR}/versions/$name
+    linkpath=$(resolve_link "$vername")
+
+    if [ -z "${linkpath}" ]; then
+      echo "mvn version ${name} do not exists"
+      exit 1
+    else
+      echo ${name} > ${LOCALVER}
+    fi
+  fi
+fi

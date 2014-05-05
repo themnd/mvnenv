@@ -1,0 +1,4 @@
+#!/bin/bash
+
+program="${0##*/}"
+exec mvnenv exec "$program" "$@"

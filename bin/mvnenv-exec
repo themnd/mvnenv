@@ -1,0 +1,23 @@
+#!/bin/bash
+
+resolve_link() {
+  $(type -p greadlink readlink | head -1) "$1"
+}
+
+if [ -e ".mvn-version" ]; then
+  CURVER=`cat .mvn-version`
+else
+  CURVER=`cat ${MVNENV_DIR}/version`
+fi
+
+name=$MVNENV_DIR/versions/$CURVER
+
+path=$(resolve_link "$name")
+
+program="${1##*/}"
+
+shift 1
+
+export M2_HOME=$path
+exec "$path/bin/$program" "$@"
+

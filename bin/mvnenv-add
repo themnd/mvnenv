@@ -1,0 +1,27 @@
+#!/bin/bash
+
+resolve_link() {
+  $(type -p greadlink readlink | head -1) "$1"
+}
+
+path=${1}
+name=${path##*/}
+
+if [ -e "${path}" ]; then
+  echo "install $path as $name"
+  vername=$MVNENV_DIR/versions/$name
+  linkpath=$(resolve_link "$vername")
+  if [ -z "${linkpath}" ]; then
+    echo "do install "
+    cd ${path} 2>/dev/null
+    MVNPATH=${PWD}
+    cd ${OLDPATH} 2>/dev/null
+    ln -s "${MVNPATH}" "${vername}"
+  else
+  	echo "already installed"
+  	exit 1
+  fi
+else
+  echo "not exists"
+  exit 1
+fi

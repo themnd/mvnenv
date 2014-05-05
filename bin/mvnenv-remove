@@ -1,0 +1,17 @@
+#!/bin/bash
+
+resolve_link() {
+  $(type -p greadlink readlink | head -1) "$1"
+}
+
+name=${1##*/}
+
+vername=$MVNENV_DIR/versions/$name
+linkpath=$(resolve_link "$vername")
+
+if [ -z "${linkpath}" ]; then
+  echo "already removed"
+  exit 1
+else
+  rm ${vername}
+fi

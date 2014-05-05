@@ -1,0 +1,27 @@
+#!/bin/bash
+
+if [ -z "${MVNENV_DIR}" ]; then
+  bindir=`dirname ${0}`
+  cd $bindir/.. 2>/dev/null
+  MVNENV_DIR="$(pwd)"
+  cd "$OLDPWD"
+fi
+export MVNENV_DIR
+
+command="$1"
+case "$command" in
+"" | "-h" | "--help" )
+  echo -e "$(mvnenv --version)\n$(mvnenv-help)" >&2
+  ;;
+* )
+  command_path="$(command -v "mvnenv-$command" || true)"   
+  if [ -z "$command_path" ]; then
+    echo "mvnenv: no such command \`$command'" >&2
+    exit 1
+  fi
+
+  shift 1        
+  exec "$command_path" "$@"
+  ;;
+esac
+
