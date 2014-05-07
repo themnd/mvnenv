@@ -78,6 +78,7 @@ Tested on Mac OS X (10.9.2)
 ## Commands Available
 
 This is the list of available commands.
+Normally when a command raise an error it will also set the exit code to 1.
 
 ### mvnenv --version
 
@@ -87,36 +88,28 @@ Display the current mvnenv version.
 
 Add a maven installation to the list of available versions.
 
-    ~~~ sh
         $ mvnenv add /opt/local/share/java/maven3
         install /opt/local/share/java/maven3 as maven3
         do install 
-    ~~~
 
 in case that version was already added:
 
-    ~~~ sh
+
         $ mvnenv add /opt/local/share/java/maven3
         install /opt/local/share/java/maven3 as maven3
         already installed
-    ~~~
-
-    _$? = 1_
 
 ### mvnenv current
 
 Display the maven version that will be used.
 
-    ~~~ sh
         $ mvnenv current
         Using global version maven3
-    ~~~
 
 ### mvnenv global
 
 Without parameters will show you which version is used for global.
 
-    ~~~ sh
         $ mvnenv global
         Current global mvn version
 
@@ -127,21 +120,16 @@ Without parameters will show you which version is used for global.
         maven2
         maven3
         maven311
-    ~~~
 
 With the name of a version will set that version as the global one.
 
-    ~~~ sh
         $ mvnenv global maven2
-    ~~~
 
 ### mvnenv init
 
 This command is only used in the .bashrc | .bash_profile to setup the other commands, you must have this in your init script:
 
-    ~~~ sh
-    eval "$(mvnenv init)"
-    ~~~
+        eval "$(mvnenv init)"
 
 ### mvnenv local
 
@@ -149,7 +137,6 @@ This command allow you to set a specific version for the current directory, it d
 
 Without parameters will show you which version is used for local.
 
-    ~~~ sh
         $ mvnenv local
         Current local mvn version
 
@@ -160,28 +147,21 @@ Without parameters will show you which version is used for local.
         maven2
         maven3
         maven311
-    ~~~
 
 With the name of a version will set that version as the local one.
 
-    ~~~ sh
         $ mvnenv local maven2
-    ~~~
 
 You can remove the current local version by using --unset.
 
-    ~~~ sh
         $ mvnenv local --unset
         Removed local maven version
-    ~~~
 
 ### mvnenv remove
 
 Remove a maven version from the list of available versions.
 
-    ~~~ sh
         $ mvnenv remove maven3
-    ~~~
 
 ### mvnenv shell
 
@@ -189,7 +169,6 @@ This command allow you to set a specific version for the current shell.
 
 Without parameters will show you which version is used for the shell.
 
-    ~~~ sh
         $ mvnenv shell
         Current shell mvn version
 
@@ -200,31 +179,24 @@ Without parameters will show you which version is used for the shell.
         maven2
         maven3
         maven311
-    ~~~
 
 With the name of a version will set that version for the current shell.
 
-    ~~~ sh
         $ mvnenv shell maven2
-    ~~~
 
 You can remove the current shell version by using --unset.
 
-    ~~~ sh
         $ mvnenv shell --unset
         Removed shell maven version
-    ~~~
 
 ### mvnenv versions
 
 List the available maven versions that have been added with the *add* command.
 
-    ~~~ sh
         $ mvnenv versions
         maven2
         maven3
         maven311
-    ~~~
 
 
 ## Thanks
