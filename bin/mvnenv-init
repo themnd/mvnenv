@@ -8,6 +8,7 @@ mvnenv()
     shift
   fi  
   result=\`command mvnenv "\$command" "\$@"\`
+  exitvalue=\$?
   if [ -n "\${result}" ]; then
     if [[ "\${result}" == export* ]] || [[ "\${result}" == unset* ]]; then
       eval "\${result}"
@@ -15,5 +16,6 @@ mvnenv()
       echo "\$result"
     fi
   fi
+  return \$exitvalue
 }
 EOF
