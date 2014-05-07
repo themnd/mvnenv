@@ -1,8 +1,47 @@
 #!/bin/bash
 
-for path in "${MVNENV_DIR}/versions/"*; do
-  if [ -d "$path" ]; then
-    echo "${path##*/}"
-  fi
-done
+resolve_link() {
+  $(type -p greadlink readlink | head -1) "$1"
+}
 
+name=${1##*/}
+
+if [ -z "${name}" ]; then
+  if [ -z "${MVNENV_VERSION}" ]; then
+    echo -e "There is no shell maven version set\n"
+    
+    echo -e "\nAvailable:\n"
+
+    mvnenv versions
+
+    exit 1
+  else
+    echo -e "Current shell maven version\n"
+    echo ${MVNENV_VERSION}
+
+    echo -e "\nAvailable:\n"
+
+    mvnenv versions
+  fi
+else
+  if [ "${name}" = "--unset" ]; then
+    if [ -z "${MVNENV_VERSION}" ]; then
+      echo "There is no shell maven version"
+      exit 1
+    else
+      echo "unset MVNENV_VERSION"
+      echo "echo \"Removed shell maven version\""
+    fi
+  else
+    vername=${MVNENV_DIR}/versions/$name
+    linkpath=$(resolve_link "$vername")
+
+    if [ -z "${linkpath}" ]; then
+      echo "mvn version ${name} do not exists"
+      exit 1
+    else
+      echo -e "export MVNENV_VERSION=\"${name}\""
+      echo -e "echo \"Set shell maven version to ${name}\""
+    fi
+  fi
+fi

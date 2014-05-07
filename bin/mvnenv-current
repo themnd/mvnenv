@@ -1,0 +1,17 @@
+#!/bin/bash
+
+WHICHVER=""
+if [ -z "${MVNENV_VERSION}" ]; then
+  if [ -e ".mvn-version" ]; then
+    WHICHVER="local"
+    CURVER=`cat .mvn-version`
+  else
+    WHICHVER="global"
+    CURVER=`cat ${MVNENV_DIR}/version`
+  fi
+else
+  WHICHVER="shell"
+  CURVER=${MVNENV_VERSION}
+fi
+
+echo "Using ${WHICHVER} version ${CURVER}"

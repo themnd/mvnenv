@@ -14,13 +14,13 @@ case "$command" in
   echo -e "$(mvnenv --version)\n$(mvnenv-help)" >&2
   ;;
 * )
-  command_path="$(command -v "mvnenv-$command" || true)"   
+  command_path="$(command -v "mvnenv-$command" || true)"
   if [ -z "$command_path" ]; then
     echo "mvnenv: no such command \`$command'" >&2
     exit 1
   fi
 
-  shift 1        
+  shift 1
   exec "$command_path" "$@"
   ;;
 esac

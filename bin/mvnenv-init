@@ -1,0 +1,19 @@
+#!/bin/bash
+
+cat <<EOF
+mvnenv()
+{
+  command="\$1"
+  if [ "\$#" -gt 0 ]; then
+    shift
+  fi  
+  result=\`command mvnenv "\$command" "\$@"\`
+  if [ -n "\${result}" ]; then
+    if [[ "\${result}" == export* ]] || [[ "\${result}" == unset* ]]; then
+      eval "\${result}"
+    else
+      echo "\$result"
+    fi
+  fi
+}
+EOF
