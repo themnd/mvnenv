@@ -1,0 +1,22 @@
+#!/bin/bash
+
+if [ "${1}" == "--complete" ]; then
+  exit
+fi
+
+CUR="$1"
+PREV="$2"
+if [ "${PREV}" == "mvnenv" ]; then
+  for cmd in ${MVNENV_DIR}/bin/mvnenv-*; do
+    cmd="${cmd##*mvnenv-}"
+    case "$cmd" in
+    completions | exec )
+      ;;
+    * )
+      echo "$cmd"
+      ;;
+    esac
+  done
+else
+  exec "mvnenv-${PREV}" --complete
+fi

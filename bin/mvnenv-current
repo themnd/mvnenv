@@ -1,5 +1,9 @@
 #!/bin/bash
 
+if [ "${1}" == "--complete" ]; then
+  exit
+fi
+
 WHICHVER=""
 if [ -z "${MVNENV_VERSION}" ]; then
   if [ -e ".mvn-version" ]; then

@@ -2,6 +2,8 @@
 
 It will allow to switch easily between multiple maven versions.
 
+After you install mvnenv, when you run the command "mvn" a script in mvnenv's bin directory will be executed it will check the configuration, automatically set M2_HOME to the desired maven installation and finally execute the mvn command.
+
 Tested on Mac OS X (10.9.2)
 
 ## Installation
@@ -21,6 +23,10 @@ Tested on Mac OS X (10.9.2)
     **JENV note**
     
     _if you use jenv (http://www.jenv.be) make sure the "export PATH" command in point 2 is placed *before* eval "$(jenv init -)"_
+
+    **MAVEN note**
+    _if maven bin is present in $PATH it must be listed *AFTER* mvnenv!_
+    _you can remove maven bin from $PATH, since the "mvn" (and "mvnDebug" and "mvnyip" are automatically handled by mvnenv)._
 
 3. Add `mvnenv init` to your shell.
 
@@ -205,3 +211,5 @@ Please feel free to submit [pull requests](https://github.com/themnd/mvnenv) and
 tracker](https://github.com/themnd/mvnenv/issues).
 
 _Heavily inspired by https://github.com/gcuisinier/jenv_
+
+Thanks to https://blog.jcoglan.com/2013/02/12/tab-completion-for-your-command-line-apps for explaining clearly how autocomplete works.

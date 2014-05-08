@@ -4,6 +4,10 @@ resolve_link() {
   $(type -p greadlink readlink | head -1) "$1"
 }
 
+if [ "${1}" == "--complete" ]; then
+  exit
+fi
+
 name=${1##*/}
 
 vername=$MVNENV_DIR/versions/$name

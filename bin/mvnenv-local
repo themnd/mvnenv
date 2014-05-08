@@ -4,6 +4,11 @@ resolve_link() {
   $(type -p greadlink readlink | head -1) "$1"
 }
 
+if [ "${1}" == "--complete" ]; then
+  echo --unset
+  exec mvnenv versions
+fi
+
 name=${1##*/}
 LOCALVER=.mvn-version
 
