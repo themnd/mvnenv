@@ -18,5 +18,8 @@ if [ "${PREV}" == "mvnenv" ]; then
     esac
   done
 else
-  exec "mvnenv-${PREV}" --complete
+  command_path="${MVNENV_DIR}/bin/mvnenv-${PREV}"
+  if [ -e "${command_path}" ]; then
+    exec "mvnenv-${PREV}" --complete
+  fi
 fi
