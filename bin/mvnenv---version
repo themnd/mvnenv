@@ -1,5 +1,9 @@
 #!/bin/bash
 
-version="0.1"
+if [ "${1}" == "--complete" ]; then
+  exit
+fi
+
+version="0.2"
 
 echo "mvnenv ${version}"

@@ -1,0 +1,66 @@
+#!/bin/bash
+
+if [ "${1}" == "--complete" ]; then
+  echo --unset
+  echo --set
+  exit 0
+fi
+
+function setValue()
+{
+  value=$@
+
+  echo "setting option: [${value}]"
+  echo ${value} > $MVNENV_DIR/option
+}
+
+function unsetValue()
+{
+  if [ -e "${MVNENV_DIR}/option" ]; then
+    options=$(cat ${MVNENV_DIR}/option)
+    rm "${MVNENV_DIR}/option"
+    echo -e "Removed global mvn option: ${options}"
+  else
+    echo -e "There is no global mvn option set\n"
+    exit 1
+  fi
+}
+
+function showCurrent()
+{
+  if [ -e "${MVNENV_DIR}/option" ]; then
+    options=$(cat ${MVNENV_DIR}/option)
+    echo -e "Current global mvn option: ${options}"
+  else
+    echo -e "There is no global mvn option set\n"
+    exit 1
+  fi
+}
+
+option=${1}
+shift
+value=$@
+
+case "$option" in
+  "--set")
+    if [ "${value}" == "" ]; then
+      echo "no option has been given"
+      exit 1
+    fi
+
+    setValue ${value}
+    ;;
+
+  "--unset" )
+
+    unsetValue
+    ;;
+
+  "")
+
+    showCurrent
+    ;;
+
+  *)
+    setValue ${option}
+esac

@@ -1,5 +1,17 @@
 #!/bin/bash
 
+if [ "${1}" == "--complete" ]; then
+  exit
+fi
+
+shell="$(basename "$SHELL")"
+if [ -n "${MVNENV_DIR}" ]; then
+  completion_file=${MVNENV_DIR}/completion/mvnenv.${shell}
+  if [ -e "${completion_file}" ]; then
+    echo "source \"${completion_file}\""
+  fi
+fi
+
 cat <<EOF
 mvnenv()
 {

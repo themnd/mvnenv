@@ -1,0 +1,29 @@
+#!/bin/bash
+
+if [ "${1}" == "--complete" ]; then
+  exit
+fi
+
+CMD="$1"
+OPT="$2"
+if [ "${CMD}" == "mvnenv" ]; then
+  for cmd in ${MVNENV_DIR}/bin/mvnenv-*; do
+    cmd="${cmd##*mvnenv-}"
+    case "$cmd" in
+    completions | exec | global-options | local-options)
+      ;;
+    * )
+      echo "$cmd"
+      ;;
+    esac
+  done
+else
+  command_path="${MVNENV_DIR}/bin/mvnenv-${CMD}"
+  if [ -e "${command_path}-${OPT}" ]; then
+    exec "${command_path}-${OPT}" --complete
+  else
+    if [ -e "${command_path}" ]; then
+      exec "${command_path}" --complete
+    fi
+  fi
+fi

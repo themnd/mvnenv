@@ -2,6 +2,8 @@
 
 It will allow to switch easily between multiple maven versions.
 
+After you install mvnenv, when you run the command "mvn" a script in mvnenv's bin directory will be executed it will check the configuration, automatically set M2_HOME to the desired maven installation and MAVEN_OPTS to the desired option and finally execute the mvn command.
+
 Tested on Mac OS X (10.9.2)
 
 ## Installation
@@ -21,6 +23,10 @@ Tested on Mac OS X (10.9.2)
     **JENV note**
     
     _if you use jenv (http://www.jenv.be) make sure the "export PATH" command in point 2 is placed *before* eval "$(jenv init -)"_
+
+    **MAVEN note**
+    _if maven bin is present in $PATH it must be listed *AFTER* mvnenv!_
+    _you can remove maven bin from $PATH, since the "mvn" (and "mvnDebug" and "mvnyip" are automatically handled by mvnenv)._
 
 3. Add `mvnenv init` to your shell.
 
@@ -105,6 +111,9 @@ Display the maven version that will be used.
 
         $ mvnenv current
         Using global version maven3
+        Using global version maven3
+        Using global option -Xmx1024m -XX:MaxPermSize=512m -Dcom.sun.management.jmxremote -Djava.awt.headless=true
+
 
 ### mvnenv global
 
@@ -124,6 +133,30 @@ Without parameters will show you which version is used for global.
 With the name of a version will set that version as the global one.
 
         $ mvnenv global maven2
+
+### mvnenv global options
+
+Without parameters will show you if there is any global option set.
+
+        $ mvnenv global options
+        Current global mvn option: -Xmx1024m -XX:MaxPermSize=512m -Dcom.sun.management.jmxremote -Djava.awt.headless=true
+
+or
+
+        $ mvnenv global options 
+        There is no global mvn option set
+
+You can set a specific global option (the --set parameter is optional).
+
+        $ mvnenv global options "-Xmx1024m -XX:MaxPermSize=512m -Dcom.sun.management.jmxremote -Djava.awt.headless=true"
+        setting option: [-Xmx1024m -XX:MaxPermSize=512m -Dcom.sun.management.jmxremote -Djava.awt.headless=true]
+
+And you can unset the current global option:
+
+        $ mvnenv global options --unset
+        Removed global mvn option: -Xmx1024m -XX:MaxPermSize=512m -Dcom.sun.management.jmxremote -Djava.awt.headless=true
+
+_if set the MAVEN_OPTS environment variable have always the precedence over global options_
 
 ### mvnenv init
 
@@ -156,6 +189,30 @@ You can remove the current local version by using --unset.
 
         $ mvnenv local --unset
         Removed local maven version
+
+### mvnenv local options
+
+Without parameters will show you if there is any local option set.
+
+        $ mvnenv local options
+        Current local mvn option: -Xmx1024m -XX:MaxPermSize=512m -Dcom.sun.management.jmxremote -Djava.awt.headless=true
+
+or
+
+        $ mvnenv local options 
+        There is no local mvn option set
+
+You can set a specific local option (the --set parameter is optional).
+
+        $ mvnenv local options "-Xmx1024m -XX:MaxPermSize=512m -Dcom.sun.management.jmxremote -Djava.awt.headless=true"
+        setting option: [-Xmx1024m -XX:MaxPermSize=512m -Dcom.sun.management.jmxremote -Djava.awt.headless=true]
+
+And you can unset the current local option:
+
+        $ mvnenv local options --unset
+        Removed local mvn option: -Xmx1024m -XX:MaxPermSize=512m -Dcom.sun.management.jmxremote -Djava.awt.headless=true
+
+_if set the MAVEN_OPTS environment variable have always the precedence over local options_
 
 ### mvnenv remove
 
@@ -205,3 +262,5 @@ Please feel free to submit [pull requests](https://github.com/themnd/mvnenv) and
 tracker](https://github.com/themnd/mvnenv/issues).
 
 _Heavily inspired by https://github.com/gcuisinier/jenv_
+
+Thanks to https://blog.jcoglan.com/2013/02/12/tab-completion-for-your-command-line-apps for explaining clearly how autocomplete works.
