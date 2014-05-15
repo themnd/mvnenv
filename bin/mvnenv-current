@@ -18,4 +18,20 @@ else
   CURVER=${MVNENV_VERSION}
 fi
 
+WHICHOPT=""
+CUROPT=""
+if [ -z "${MAVEN_OPTS}" ]; then
+  if [ -e ".mvn-option" ]; then
+    WHICHOPT="local"
+    CUROPT=`cat .mvn-option`
+  else
+    WHICHOPT="global"
+    CUROPT=`cat ${MVNENV_DIR}/option`
+  fi
+else
+  WHICHOPT="shell"
+  CUROPT=${MAVEN_OPTS}
+fi
+
 echo "Using ${WHICHVER} version ${CURVER}"
+echo "Using ${WHICHOPT} option ${CUROPT}"

@@ -1,0 +1,68 @@
+#!/bin/bash
+
+if [ "${1}" == "--complete" ]; then
+  echo --unset
+  echo --set
+  exit 0
+fi
+
+LOCALOPTION=.mvn-option
+
+function setValue()
+{
+  value=$@
+
+  echo "setting option: [${value}]"
+  echo ${value} > ${LOCALOPTION}
+}
+
+function unsetValue()
+{
+  if [ -e "${LOCALOPTION}" ]; then
+    options=$(cat ${LOCALOPTION})
+    rm "${LOCALOPTION}"
+    echo -e "Removed local mvn option: ${options}"
+  else
+    echo -e "There is no local mvn option set\n"
+    exit 1
+  fi
+}
+
+function showCurrent()
+{
+  if [ -e "${LOCALOPTION}" ]; then
+    options=$(cat ${LOCALOPTION})
+    echo -e "Current local mvn option: ${options}"
+  else
+    echo -e "There is no local mvn option set\n"
+    exit 1
+  fi
+}
+
+option=${1}
+shift
+value=$@
+
+case "$option" in
+  "--set")
+    if [ "${value}" == "" ]; then
+      echo "no option has been given"
+      exit 1
+    fi
+
+    setValue ${value}
+    ;;
+
+  "--unset" )
+
+    unsetValue
+    ;;
+
+  "")
+
+    showCurrent
+    ;;
+
+  *)
+    setValue ${option}
+esac

@@ -6,6 +6,7 @@ resolve_link() {
 
 if [ "${1}" == "--complete" ]; then
   echo --unset
+  echo options
   exec mvnenv versions
 fi
 

@@ -5,7 +5,12 @@ _mvnenv_complete()
   COMPREPLY=()
   local cur="${COMP_WORDS[COMP_CWORD]}"
   local prev="${COMP_WORDS[COMP_CWORD-1]}"
-  local completions=$(mvnenv completions "$cur" "$prev")
+  if [ $COMP_CWORD -gt 1 ]; then
+  	local CMD="${COMP_WORDS[1]}"
+  else
+  	local CMD="${COMP_WORDS[COMP_CWORD-1]}"
+  fi
+  local completions=$(mvnenv completions "$CMD" "$prev")
   COMPREPLY=( $(compgen -W "$completions" -- "$cur") )
 }
 
