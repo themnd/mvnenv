@@ -11,7 +11,7 @@ if [ "${1}" == "--complete" ]; then
 fi
 
 name=${1##*/}
-LOCALVER=.mvn-version
+LOCALVER="$(git rev-parse --show-toplevel)/.mvn-version"
 
 if [ -z "${name}" ]; then
   if [ -e "${LOCALVER}" ]; then
