@@ -35,7 +35,6 @@ program="${1##*/}"
 
 shift 1
 
-export M2_HOME=${path}
 if [ -n "${CUROPT}" ]; then
   export MAVEN_OPTS="${CUROPT}"
 fi
