@@ -9,8 +9,8 @@ if [ "${1}" == "--complete" ]; then
 fi
 
 if [ -z "${MVNENV_VERSION}" ]; then
-  if [ -e "$(git rev-parse --show-toplevel)/.mvn-version" ]; then
-    CURVER="$(cat $(git rev-parse --show-toplevel)/.mvn-version)"
+  if [ -e "$(git rev-parse --show-toplevel)/.mvn/.mvn-version" ]; then
+    CURVER="$(cat $(git rev-parse --show-toplevel)/.mvn/.mvn-version)"
   else
     CURVER=$(cat ${MVNENV_DIR}/version)
   fi
@@ -20,8 +20,8 @@ fi
 
 CUROPT=""
 if [ -z "${MAVEN_OPTS}" ]; then
-  if [ -e "$(git rev-parse --show-toplevel)/.mvn-option" ]; then
-    CUROPT="$(cat $(git rev-parse --show-toplevel)/.mvn-option)"
+  if [ -e "$(git rev-parse --show-toplevel)/.mvn/.mvn-option" ]; then
+    CUROPT="$(cat $(git rev-parse --show-toplevel)/.mvn/.mvn-option)"
   else
     CUROPT=$(cat ${MVNENV_DIR}/option)
   fi
