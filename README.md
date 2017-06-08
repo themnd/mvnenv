@@ -166,7 +166,8 @@ This command is only used in the .bashrc | .bash_profile to setup the other comm
 
 ### mvnenv local
 
-This command allow you to set a specific version for the current directory, it does it by creating a file named *.mvnenv_version* in the current directory, this means that for subdirectories the global one will apply.
+This command allow you to set a specific version for the current directory, it does it by creating a file named *.mvnenv_version* in the current directory. **The 
+current directory is expected to be the root of a git repository.** The Maven version will then apply to every subdirectories.
 
 Without parameters will show you which version is used for local.
 

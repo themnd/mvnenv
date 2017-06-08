@@ -6,12 +6,12 @@ fi
 
 WHICHVER=""
 if [ -z "${MVNENV_VERSION}" ]; then
-  if [ -e ".mvn-version" ]; then
+  if [ -e "$(git rev-parse --show-toplevel)/.mvn/.mvn-version" ]; then
     WHICHVER="local"
-    CURVER=`cat .mvn-version`
+    CURVER="$(cat $(git rev-parse --show-toplevel)/.mvn/.mvn-version)"
   else
     WHICHVER="global"
-    CURVER=`cat ${MVNENV_DIR}/version`
+    CURVER=$(cat ${MVNENV_DIR}/version)
   fi
 else
   WHICHVER="shell"
@@ -21,12 +21,12 @@ fi
 WHICHOPT=""
 CUROPT=""
 if [ -z "${MAVEN_OPTS}" ]; then
-  if [ -e ".mvn-option" ]; then
+  if [ -e "$(git rev-parse --show-toplevel)/.mvn/.mvn-option" ]; then
     WHICHOPT="local"
-    CUROPT=`cat .mvn-option`
+    CUROPT="$(cat $(git rev-parse --show-toplevel)/.mvn/.mvn-option)"
   else
     WHICHOPT="global"
-    CUROPT=`cat ${MVNENV_DIR}/option`
+    CUROPT=$(cat ${MVNENV_DIR}/option)
   fi
 else
   WHICHOPT="shell"
